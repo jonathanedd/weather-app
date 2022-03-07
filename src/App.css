@@ -1,38 +1,45 @@
 .App {
+  background-image: url('./components/icons/night.webp');
+  background-size:cover;
+  color: #E8FFC2;
+  margin: auto;
+  padding: 10px;
   text-align: center;
+  width: 400px;
+  border-radius: 15px;
+  
+  
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* h4{
+  text-align: right;
+} */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.icon-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: right;
+}
+
+.icon-list ul li {
+  list-style: none;
+  text-align: left;
+  padding-top: 10px;
+  
+}
+
+.icon-list  img {
+  width: 150px;
+}
+button{
+  display:flex;
+  margin: 20px;
+  border-radius: 10%;
+  background-color: #0E185F;
+  color: #E8FFC2;
+  border: none;
+  width: 40px;
+  height: 30px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
