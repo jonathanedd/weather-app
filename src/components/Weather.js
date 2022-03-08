@@ -9,7 +9,7 @@ const Weather = () => {
     const [weather , setWeather ] = useState('');
 
     const [ temperature, setTemperature ] = useState(0);
-    const [ isKelvin, setIsKelvin ] = useState(true);
+    const [ isCelsius, setIsCelsius ] = useState(true);
     
     
 
@@ -17,6 +17,8 @@ const Weather = () => {
 
 
     useEffect( () => {
+
+        
 
         const error = () => {
             console.log('No se pudo obtener la ubicacion ')
@@ -32,12 +34,12 @@ const Weather = () => {
         axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lati}&lon=${longi}&appid=fef970fef5e41e5528561952114f3d22`)
             .then((res) => { 
                 setWeather(res.data);
-                setTemperature(res.data.main.temp)
+                setTemperature(Math.round(res.data.main.temp - 273 ))
                 
             })
     
     };
-
+        
     
         navigator.geolocation.getCurrentPosition(success, error)
 
@@ -46,22 +48,20 @@ const Weather = () => {
     }, [] )
 
   
-
-    // const toCelsius = Math.round(temperature - 273) ;
-    // const toFaren = (temperature - 273) * 9/5 + 32 ;
+    
+    const convertTemp = () => {
+        if(isCelsius){
+            setTemperature(temperature * 9/5 + 32  );
+            setIsCelsius(false)
+        }else{
+            setTemperature((temperature - 32 )* 5/9 );
+            setIsCelsius(true);
+        }
+    }
 
     
 
-    const convertTemp = () => {
-
-        if(isKelvin){
-            // setTemperature(toCelsius)
-            setIsKelvin(false)
-        }else {
-            // setTemperature(toFaren)
-            setIsKelvin(true)
-        }
-    }
+    
 
     
     
@@ -71,7 +71,10 @@ const Weather = () => {
     return (
         <div className='weather-app'>
             
-            <h1> {Math.round(temperature - 273 )} {isKelvin ? '°C' : '°F'} </h1>
+            <h1> {Math.round(temperature)} {isCelsius ? '°C' : '°F'} </h1>
+
+            <button onClick={convertTemp}> {isCelsius ? '°F' : '°C' } </button>
+
             <h4> {weather.weather?.[0].description}</h4>
             <h5> {weather.name} , {weather.sys?.country} </h5> 
             
@@ -88,7 +91,7 @@ const Weather = () => {
                 </ul>
                 
             </div>
-            <button onClick={convertTemp}> {isKelvin ? '°F' : '°C' } </button>
+            
         </div>
     );
 };
